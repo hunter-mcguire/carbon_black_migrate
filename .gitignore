@@ -1,3 +1,7 @@
+#Deployent Files
+trend_install.ps1
+devices.csv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
