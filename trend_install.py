@@ -21,21 +21,12 @@ class DeviceSession:
         self.cb_org_key = cb_org_key
         self.headers = {'X-AUTH-TOKEN': cb_api_key}
         self.file_id = None
+        #self.cb_status = None # ADD
         self.status = None
         self.device_name = self.get_device_name()
         self.session_id = self.start_device_session()
 
-    def start_device_session(self):
-        '''
-        Function for acquiring live response session to device
-        '''
-        url = f'{self.cb_url}/appservices/v6/orgs/{self.cb_org_key}/liveresponse/sessions'
-        payload = {'device_id': self.device_id}
-        response = requests.post(url, json=payload, headers=self.headers)
-        if response:
-            return response.json().get('id')
-
-    def get_device_name(self):
+    def get_device_name(self): #Change to get info and capture av_status
         '''
         Function for getting device info
         '''
@@ -46,6 +37,16 @@ class DeviceSession:
 
         if response:
             return response.json().get('name')
+
+    def start_device_session(self):
+        '''
+        Function for acquiring live response session to device
+        '''
+        url = f'{self.cb_url}/appservices/v6/orgs/{self.cb_org_key}/liveresponse/sessions'
+        payload = {'device_id': self.device_id}
+        response = requests.post(url, json=payload, headers=self.headers)
+        if response:
+            return response.json().get('id')
 
     def file_upload(self, data: bytes) -> int:
         '''
